@@ -8,9 +8,9 @@ from numpy import isnan
 import psynet.experiment
 from psynet.js_synth import JSSynth, InstrumentTimbre, Note, ShepardTimbre, Chord
 from psynet.modular_page import SurveyJSControl, PushButtonControl
-from psynet.page import InfoPage, SuccessfulEndPage, ModularPage
+from psynet.page import InfoPage, SuccessfulEndPage, ModularPage, WaitPage
 from psynet.prescreen import AntiphaseHeadphoneTest
-from psynet.timeline import Timeline, Event
+from psynet.timeline import Timeline, Event, conditional, join
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
 from psynet.utils import get_logger, corr
 from psynet.bot import Bot
@@ -140,7 +140,8 @@ RATING_ATTRIBUTES = {   # 15 in total
 
 N_RATING_ATTRIBUTES_PER_TRIAL = 1 #Quickfire trials.
 TRIALS_PER_PARTICIPANT = 100 #Just a placeholder. At 5 sec per trial = 8.33 minutes of rating.
-N_REPEAT_TRIALS = 5
+N_REPEAT_TRIALS = 100
+BREAK_AFTER_N_TRIALS = 100
 
 NODES = [
     StaticNode(
@@ -165,16 +166,16 @@ class ChordTrial(StaticTrial):
 
     def finalize_definition(self, definition, experiment, participant):
         definition["duration"] = 5
-        definition["base_pitch"] = randint(54, 66) #Considering whether one 8ve is enough.
+        definition["base_pitch"] = randint(54, 66)
 
         #TODO: work out correct way to refer to chord.
-        definition["realized_chord"] = [int(note) + definition["base_pitch"]
+        definition["realized_chord"] = [note + definition["base_pitch"]
                           for note in self.base_chord]
 
         return definition
 
     def show_trial(self, experiment, participant):
-        return ModularPage(
+        trial_page = ModularPage(
             "rating",
             JSSynth(
                 (
@@ -191,42 +192,24 @@ class ChordTrial(StaticTrial):
                 arrange_vertically=False,
                 bot_response=randint(1,5),
             ),
+            time_estimate=5,
         )
+
+        break_page = WaitPage(
+            wait_time=5,
+            content="Please relax for a few moments, we will continue the experiment shortly.",
+        )
+
+        if self.position != 0 and self.position % BREAK_AFTER_N_TRIALS == 0:
+            return join(break_page, trial_page)
+        else:
+            return trial_page
+
 
 class ChordsTrialMaker(StaticTrialMaker):
+    performance_check_type = "consistency"
+    consistency_check_type = "spearman_correlation"
     give_end_feedback_passed = False
-
-    def performance_check(
-        self, experiment, participant, participant_trials
-    ):
-        trials_by_id = {trial.id: trial for trial in participant_trials}
-
-        repeat_trials = [t for t in participant_trials if t.is_repeat_trial]
-        parent_trials = [trials_by_id[t.parent_trial_id] for t in repeat_trials]
-
-        repeat_trial_answers = []
-        parent_trial_answers = []
-
-        for repeat_trial, parent_trial in zip(repeat_trials, parent_trials):
-            assert repeat_trial.definition["rating_attributes"] == parent_trial.definition["rating_attributes"]
-
-            repeat_trial_answers.append(int(repeat_trial.answer))
-            parent_trial_answers.append(int(parent_trial.answer))
-
-        consistency = corr(repeat_trial_answers, parent_trial_answers, method="spearman")
-        passed = True
-
-        if isnan(consistency):
-            consistency = None
-
-        logger.info(
-            "Performance check for participant %i: consistency = %.1f%%, passed = %s",
-            participant.id,
-            consistency * 100.0,
-            passed,
-        )
-
-        return {"score": consistency, "passed": passed}
 
     def compute_bonus(self, score, passed):
         max_bonus = 0.40
