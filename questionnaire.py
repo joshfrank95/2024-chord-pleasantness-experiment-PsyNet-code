@@ -497,7 +497,7 @@ def questionnaire():
                                     {
                                         "value": 7,
                                         "text": "completely agree"
-                                    }
+                                    },
                                 ]
                             }
                         ]
