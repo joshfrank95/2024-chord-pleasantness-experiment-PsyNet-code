@@ -27,9 +27,3 @@ __pycache__
 develop/
 deploy/
 deploy_logs/
-
-#Untracking old files from Claire's project
-
-scales.tsv
-scales_experiment.py
-melodies/
