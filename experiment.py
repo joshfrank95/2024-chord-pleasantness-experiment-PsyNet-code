@@ -166,7 +166,7 @@ class ChordTrial(StaticTrial):
 
     def finalize_definition(self, definition, experiment, participant):
         definition["duration"] = 5
-        definition["base_pitch"] = randint(54, 66)
+        definition["base_pitch"] = randint(60, 71)
 
         #TODO: work out correct way to refer to chord.
         definition["realized_chord"] = [note + definition["base_pitch"]
@@ -179,7 +179,7 @@ class ChordTrial(StaticTrial):
             "rating",
             JSSynth(
                 (
-                    f"Rate this chord on the following scale: {self.definition['rating_attribute']}"
+                    f"How strongly does this chord portray: {self.definition['rating_attribute']}"
                 ),
                 [
                     Chord(self.definition["realized_chord"],
@@ -244,5 +244,7 @@ class Exp(psynet.experiment.Experiment):
             target_n_participants=50,
             check_performance_at_end=False,
         ),
+        questionnaire_intro(),
+        questionnaire(),
         SuccessfulEndPage(),
     )

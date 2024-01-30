@@ -499,7 +499,70 @@ def questionnaire():
                                         "text": "completely agree"
                                     },
                                 ]
-                            }
+                            },
+                            {
+                                "type": "radiogroup",
+                                "name": "language",
+                                "title": "Is English both your and your parents' home language?",
+                                "choices": [
+                                    {
+                                        "value": 1,
+                                        "text": "Yes, English is my and both my parents' home language."
+                                    },
+                                    {
+                                        "value": 2,
+                                        "text": "English is my home language, but one of my parents has a different home language."
+                                    },
+                                    {
+                                        "value": 3,
+                                        "text": "English is my home language, but both of my parents have a different home language."
+                                    },
+                                    {
+                                        "value": 4,
+                                        "text": "No, English is not my home language."
+                                    },
+                                ]
+                            },
+                            {
+                                "type": "radiogroup",
+                                "name": "tinnitus",
+                                "title": "Do you regularly experience tinnitus (ringing in one or both ears in silent spaces)?",
+                                "choices": [
+                                    {
+                                        "value": 1,
+                                        "text": "Yes"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "text": "No"
+                                    },
+                                ]
+                            },
+                            {
+                                "type": "text",
+                                "name": "wam_training",
+                                "title": "I have received _ years of training in Western art music (Classical music).",
+                                "isRequired": True
+                            },
+                            {
+                                "type": "radiogroup",
+                                "name": "handedness",
+                                "title": "What is your handedness?",
+                                "choices": [
+                                    {
+                                        "value": 1,
+                                        "text": "Right-handed"
+                                    },
+                                    {
+                                        "value": 2,
+                                        "text": "Left-handed"
+                                    },
+                                    {
+                                        "value": 3,
+                                        "text": "Ambidextrous"
+                                    },
+                                ]
+                            },
                         ]
                     }
                 ]
