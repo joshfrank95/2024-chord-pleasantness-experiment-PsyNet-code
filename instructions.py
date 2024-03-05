@@ -10,16 +10,13 @@ def instructions():
         tags.p(
             """
             In this experiment you will listen to a series of chords.
-            You will be asked to rate how well each chord matches a pair of words,
-            for example "Happiness, elation". Please note that this question is always
-            about how well the chord PORTRAYS that emotion, i.e., "Does this chord sound
-            happy/elated".
+            You will be asked to rate how pleasant each chord sounds.
             """
         )
 
         tags.p(
             """
-            Take as much time as you need for each question. The chord will play for 5 seconds, but you are free to 
+            Take as much time as you need for each question. The chord will play for 3 seconds, but you are free to 
             consider your answer for a longer time before selecting a number. You may also answer while the chord is
             still playing, if you have decided quickly.
             """
@@ -28,7 +25,8 @@ def instructions():
         tags.p(
             """
             We will monitor the answers you give throughout the experiment, and will give a small additional bonus
-            if you give high-quality and reliable responses. Listen carefully and give it your best shot!
+            (up to £0.40) if you give high-quality and reliable responses. 
+            Listen carefully and give it your best shot!
             """
         )
 
