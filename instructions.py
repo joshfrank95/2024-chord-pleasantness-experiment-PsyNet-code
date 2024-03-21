@@ -17,7 +17,7 @@ def instructions():
         tags.p(
             """
             Take as much time as you need for each question. The chord will play for 3 seconds, but you are free to 
-            consider your answer for a longer time before selecting a number. You may also answer while the chord is
+            consider your answer for a longer time before selecting a response. You may also answer while the chord is
             still playing, if you have decided quickly.
             """
         )

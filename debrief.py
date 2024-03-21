@@ -16,10 +16,11 @@ with debriefing_html:
     )
     p(
         """
-        In this study, we are examining which emotions are commonly associated with different musical chords.
-        In addition to the emotional associations of each chord, we are interested in uncovering the
-        specific structural features in the chords that are responsible for driving these associations. 
-        These features could be related to interval size, pitch height, or familiarity, to name only a few.
+        In this study, we are examining the perceived pleasantness of different musical chords.
+        In addition to this, we are interested in uncovering the
+        specific structural features in the chords that are responsible for driving their pleasantness/unpleasantness. 
+        These features could be related to interval size, pitch height, or familiarity, to name only a few. 
+        We are also interested in the drivers of individual differences in responses to these chords.
         """
     )
     p(

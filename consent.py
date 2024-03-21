@@ -22,7 +22,7 @@ with information_sheet:
             """
             Music is a complex yet fascinating phenomenon that appears in all known cultures. As music psychologists, we
             want to understand the mental processes that underpin music listening and music creation. In this particular
-            experiment, we are studying how melodies can elicit different emotions.
+            experiment, we are studying the perceived pleasantness/unpleasantness of a wide variety of chords.
             """
         )
 
@@ -39,7 +39,7 @@ with information_sheet:
         strong("How long does the experiment last?")
         span(
             """
-            The full experiment should last approximately 20 minutes, though individual times will vary, and your
+            The full experiment should last about 11 minutes, though individual times will vary, and your
             experiment may end early depending on various factors.
             """
         )
@@ -50,28 +50,23 @@ with information_sheet:
         strong("Benefits of taking part.")
         span(
             """
-            Completing the entire experiment earns you a payment of approximately £3.00. This fee is calculated by
+            Completing the entire experiment earns you a payment of approximately £1.82. This fee is calculated by
             multiplying a notional hourly rate of £10.00/hour by the estimated duration of the experiment. However,
-            please note the following:
-            """
+            please note that
+            taking the experiment more slowly does not earn you a greater total payment. The total payment is fixed
+            according to the 
+            """,
+            em("estimated"),
+            " duration of the experiment.",
         )
-        with ul():
-            li(
-                """
-                Taking the experiment more slowly does not earn you a greater total payment. The total payment is fixed
-                according to the 
-                """,
-                em("estimated"),
-                " duration of the experiment",
-            )
 
-            li(
-                """
-                Your experiment could end early for a number of reasons, including but not limited to technical failure
-                and task performance. In this case you will be compensated pro rata for the portion of the experiment
-                that you completed.
-                """
-            )
+            # li(
+            #     """
+            #     Your experiment could end early for a number of reasons, including but not limited to technical failure
+            #     and task performance. In this case you will be compensated pro rata for the portion of the experiment
+            #     that you completed.
+            #     """
+            # )
 
     with p():
         strong("What is the procedure?")
@@ -112,7 +107,7 @@ with information_sheet:
         strong("Contact for further information.")
         p(
             """
-            If you have further queries about this experiment, please contact Claire Anne Brillon at cb2211@cam.ac.uk.
+            If you have further queries about this experiment, please contact Joshua Frank at jbf43@cam.ac.uk.
             """
         )
 
@@ -137,7 +132,7 @@ with consent_form:
         I understand that the data collected in this testing session will be stored on electronic media or on paper and
         it may contribute to scientific publications and presentations. I agree that the data can be made available
         anonymously for other researchers, both inside and outside the Centre for Music and Science and Faculty of
-        Music. These data will not be linked to me as an individual.
+        Music of the University of Cambridge. These data will not be linked to me as an individual.
         """
     )
 

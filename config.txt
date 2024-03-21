@@ -1,23 +1,20 @@
 [Config]
-title = Musical scales experiment (headphones required, Chrome browser, 15 minutes)
-description = This is a music listening experiment, but no musical expertise is required to take part. You will listen to different melodies, and you will be asked to rate them. We use a dynamic payment scheme which means you get paid in proportion to how far you make it through the experiment.
+title = Evaluating the pleasantness of musical chords (headphones required, Chrome browser, 11 minutes)
+description = This is a music listening experiment, but no musical expertise is required to take part. You will listen to different chords, and you will be asked to rate them.
 window_width = 1024
 window_height = 1024
 
 [Prolific]
-recruiter = generic
+recruiter = prolific
 currency = £
-wage_per_hour = 10.0
-base_payment = 0.17
-prolific_estimated_completion_minutes = 1
+wage_per_hour = 0.0
+base_payment = 1.82
+prolific_estimated_completion_minutes = 11
+show_reward = False
 
 auto_recruit = false
 
 # Set recruitment config manually in the Prolific dashboard:
-# - USA, UK, Canada, Mexico
+# - USA, UK
 # - no mobile or tablet
 # - yes audio
-
-# Because experiment max time was automatically set to 13 minutes,
-# we then increased estimated time to 3 minutes in Prolific,
-# and increased the base reward to 0.50.

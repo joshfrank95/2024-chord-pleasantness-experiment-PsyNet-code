@@ -9,7 +9,7 @@ from markupsafe import Markup
 import psynet.experiment
 from psynet.js_synth import JSSynth, InstrumentTimbre, Note, ShepardTimbre, Chord
 from psynet.modular_page import SurveyJSControl, PushButtonControl
-from psynet.page import InfoPage, SuccessfulEndPage, ModularPage, WaitPage
+from psynet.page import InfoPage, SuccessfulEndPage, ModularPage, WaitPage, UnsuccessfulEndPage
 from psynet.prescreen import AntiphaseHeadphoneTest
 from psynet.timeline import Timeline, Event, conditional, join
 from psynet.trial.static import StaticTrial, StaticNode, StaticTrialMaker
@@ -141,8 +141,8 @@ class ChordTrial(StaticTrial):
     def base_chord(self):
         return self.definition["chord"]
 
-    def rating_attribute(self):
-        return self.definition["rating_attribute"]
+    # def rating_attribute(self):
+    #     return self.definition["rating_attribute"]
 
     def finalize_definition(self, definition, experiment, participant):
         definition["duration"] = 3
@@ -196,7 +196,7 @@ class ChordTrial(StaticTrial):
             ),
             PushButtonControl(
                 [1, 2, 3, 4, 5],
-                ["Not at all", "A little", "Moderately", "Quite a lot", "Very much"],
+                ["Very unpleasant", "Somewhat unpleasant", "Neutral", "Somewhat pleasant", "Very pleasant"],
                 arrange_vertically=False,
                 bot_response=self.get_bot_response,
                 style="width: 150px; margin: 10px",
@@ -236,10 +236,25 @@ class Exp(psynet.experiment.Experiment):
     label = "Chord pleasantness experiment"
     test_n_bots = 100
 
-    # I'm leaving the instructions, questionnaire, and debriefing out of the timeline for now (and the audio checks).
-    # But, I'm making some changes to wording in them to reflect this experiment.
     timeline = Timeline(
-        NoConsent(),
+        consent,
+        InfoPage(
+            tags.div(
+                tags.p("This experiment requires you to wear headphones. Please ensure you have plugged yours in now."),
+                tags.p("The next page will play some test audio. Please turn down your volume before proceeding.")
+            ),
+            time_estimate=5,
+        ),
+        volume_calibration(mean_pitch=67, sd_pitch=5, timbre=TIMBRE),
+        InfoPage(
+            """
+            We will now perform a short listening test to verify that your audio is working properly.
+            This test will be difficult to pass unless you listen carefully over your headphones.
+            Press 'Next' when you are ready to start.
+            """,
+            time_estimate=5,
+        ),
+        AntiphaseHeadphoneTest(performance_threshold=0),
         instructions(),
         ChordsTrialMaker(
             id_="main_experiment",
@@ -251,11 +266,12 @@ class Exp(psynet.experiment.Experiment):
             allow_repeated_nodes=False,
             n_repeat_trials=N_REPEAT_TRIALS,
             balance_across_nodes=False,
-            target_n_participants=50,
+            target_n_participants=100,
             check_performance_at_end=True,
         ),
         questionnaire_intro(),
         questionnaire(),
+        debriefing(),
         SuccessfulEndPage(),
     )
 
