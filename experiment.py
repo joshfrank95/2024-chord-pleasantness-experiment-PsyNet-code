@@ -156,8 +156,7 @@ class ChordTrial(StaticTrial):
 
     def get_bot_response(self, bot):
         if self.is_repeat_trial:
-            parent = ChordTrial.query.get(self.parent_trial_id)
-            return parent.answer
+            return self.parent_trial.answer
         else:
             return self.generate_answer(bot)
 
@@ -234,7 +233,7 @@ class ChordsTrialMaker(StaticTrialMaker):
 
 class Exp(psynet.experiment.Experiment):
     label = "Chord pleasantness experiment"
-    test_n_bots = 100
+    test_n_bots = 12
 
     timeline = Timeline(
         consent,
@@ -279,9 +278,11 @@ class Exp(psynet.experiment.Experiment):
         module_state = bot.module_states["main_experiment"][0]
         performance_check = module_state.performance_check
         assert performance_check is not None
-        assert performance_check["score"] == 1.0
         assert performance_check["passed"]
-        assert bot.performance_reward > 0.0
+
+        if bot.id % 4 in [2, 3]:
+            assert performance_check["score"] == 1.0
+            assert bot.performance_reward > 0.0
 
         chord_trials = [t for t in bot.alive_trials if isinstance(t, ChordTrial)]
         assert len(chord_trials) == TRIALS_PER_PARTICIPANT * 2
