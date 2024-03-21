@@ -18,3 +18,4 @@ auto_recruit = false
 # - USA, UK
 # - no mobile or tablet
 # - yes audio
+# - prescreen participants for hearing difficulties
