@@ -237,24 +237,24 @@ class Exp(psynet.experiment.Experiment):
 
     timeline = Timeline(
         consent,
-        InfoPage(
-            tags.div(
-                tags.p("This experiment requires you to wear headphones. Please ensure you have plugged yours in now."),
-                tags.p("The next page will play some test audio. Please turn down your volume before proceeding.")
-            ),
-            time_estimate=5,
-        ),
-        volume_calibration(mean_pitch=67, sd_pitch=5, timbre=TIMBRE),
-        InfoPage(
-            """
-            We will now perform a short listening test to verify that your audio is working properly.
-            This test will be difficult to pass unless you listen carefully over your headphones.
-            Press 'Next' when you are ready to start.
-            """,
-            time_estimate=5,
-        ),
-        AntiphaseHeadphoneTest(performance_threshold=0),
-        instructions(),
+        # InfoPage(
+        #     tags.div(
+        #         tags.p("This experiment requires you to wear headphones. Please ensure you have plugged yours in now."),
+        #         tags.p("The next page will play some test audio. Please turn down your volume before proceeding.")
+        #     ),
+        #     time_estimate=5,
+        # ),
+        # volume_calibration(mean_pitch=67, sd_pitch=5, timbre=TIMBRE),
+        # InfoPage(
+        #     """
+        #     We will now perform a short listening test to verify that your audio is working properly.
+        #     This test will be difficult to pass unless you listen carefully over your headphones.
+        #     Press 'Next' when you are ready to start.
+        #     """,
+        #     time_estimate=5,
+        # ),
+        # AntiphaseHeadphoneTest(performance_threshold=0),
+        # instructions(),
         ChordsTrialMaker(
             id_="main_experiment",
             trial_class=ChordTrial,
@@ -268,8 +268,8 @@ class Exp(psynet.experiment.Experiment):
             target_n_participants=100,
             check_performance_at_end=True,
         ),
-        questionnaire_intro(),
-        questionnaire(),
+        # questionnaire_intro(),
+        # questionnaire(),
         debriefing(),
         SuccessfulEndPage(),
     )
